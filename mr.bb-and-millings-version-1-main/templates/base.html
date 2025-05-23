@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Festival Logistics{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Inter font and shadcn/ui-inspired minimal CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"><style>
+        :root {
+            /* Base colors - shadcn/ui updated palette */
+            --background: 0 0% 100%;
+            --foreground: 240 10% 3.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 240 10% 3.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 240 10% 3.9%;
+            
+            /* Primary - slate color from shadcn */
+            --primary: 222.2 47.4% 11.2%;
+            --primary-foreground: 210 40% 98%;
+            
+            /* Secondary - muted button color */
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            
+            /* Muted styles */
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            
+            /* Accent styles - subtle background for hover states */
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            
+            /* Destructive - for delete buttons, error states */
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 210 40% 98%;
+            
+            /* Border & Input styling */
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 222.2 84% 4.9%;
+            
+            /* Border radius for consistent rounded corners */
+            --radius: 0.5rem;
+
+            /* Additional shadcn/ui utility colors */
+            --success: 142.1 76.2% 36.3%;
+            --success-foreground: 355 100% 100%;
+            --warning: 38 92.7% 50.2%;
+            --warning-foreground: 48 96% 89%;
+            --info: 221.2 83.2% 53.3%;
+            --info-foreground: 210 40% 98%;
+        }        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --popover: 222.2 84% 4.9%;
+            --popover-foreground: 210 40% 98%;
+            --primary: 210 40% 98%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 212.7 26.8% 83.9%;
+            
+            /* Additional dark mode utilities */
+            --success: 142.1 70.6% 45.3%;
+            --warning: 38 92.7% 50.2%;
+            --info: 221.2 83.2% 53.3%;
+        }        /* Base styles */
+        html { 
+            font-family: 'Inter', system-ui, sans-serif;
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+            background: hsl(var(--background)); 
+            color: hsl(var(--foreground));
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body { 
+            background: hsl(var(--background)); 
+            color: hsl(var(--foreground));
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+        }
+        
+        /* Card styling */
+        .card, .modal-content { 
+            border-radius: var(--radius) !important;
+            background-color: hsl(var(--card));
+            color: hsl(var(--card-foreground));
+            border: 1px solid hsl(var(--border));
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 150ms ease, transform 150ms ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Buttons, inputs and form controls */
+        .btn, .form-control, .form-select { 
+            border-radius: calc(var(--radius) - 2px) !important;
+            height: 2.5rem;
+            font-weight: 500;
+            transition: all 150ms ease;
+        }
+        
+        /* Alerts */
+        .alert { 
+            border-radius: var(--radius); 
+            font-size: 0.95rem;
+            font-weight: 450;
+            border: 1px solid transparent;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Footer */
+        .footer { 
+            background: hsl(var(--background)); 
+            border-top: 1px solid hsl(var(--border));
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        
+        /* Main content */
+        main { 
+            min-height: 70vh; 
+            background-color: hsl(var(--background));
+        }
+          /* Form elements */
+        .form-label { 
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control, .form-select { 
+            background: hsl(var(--background));
+            border: 1px solid hsl(var(--input));
+            color: hsl(var(--foreground));
+            font-size: 0.95rem;
+            padding: 0.5rem 0.75rem;
+            transition: border-color 150ms ease, box-shadow 150ms ease;
+            height: calc(2.25rem + 2px);
+        }
+        
+        /* Adjust sizing for small form controls */
+        .form-control-sm, .form-select-sm {
+            height: calc(1.75rem + 2px);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Adjust sizing for textarea */
+        textarea.form-control {
+            height: auto;
+            min-height: 100px;
+        }
+        
+        .form-control:focus, .form-select:focus { 
+            border-color: hsl(var(--ring)); 
+            box-shadow: 0 0 0 2px hsl(var(--ring) / 15%);
+            outline: none;
+        }
+        
+        .form-control::placeholder {
+            color: hsl(var(--muted-foreground));
+        }
+        
+        /* Button variants */
+        .btn-primary { 
+            background: hsl(var(--primary)); 
+            color: hsl(var(--primary-foreground));
+            border: none;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover, .btn-primary:focus { 
+            background: hsl(var(--primary) / 0.9);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary { 
+            background: hsl(var(--secondary)); 
+            color: hsl(var(--secondary-foreground)); 
+            border: none;
+        }
+        
+        .btn-secondary:hover, .btn-secondary:focus { 
+            background: hsl(var(--secondary) / 0.9); 
+            transform: translateY(-1px);
+        }
+        
+        .btn-outline-primary {
+            border: 1px solid hsl(var(--primary) / 0.2);
+            color: hsl(var(--primary));
+            background: transparent;
+        }
+        
+        .btn-outline-primary:hover {
+            background: hsl(var(--primary) / 0.05);
+            border-color: hsl(var(--primary) / 0.5);
+            color: hsl(var(--primary));
+        }
+        
+        .btn-outline-secondary {
+            border: 1px solid hsl(var(--secondary-foreground) / 0.2);
+            color: hsl(var(--secondary-foreground));
+            background: transparent;
+        }
+        
+        .btn-outline-secondary:hover {
+            background: hsl(var(--secondary) / 0.7);
+            color: hsl(var(--secondary-foreground));
+        }
+        
+        .btn-outline-danger {
+            border: 1px solid hsl(var(--destructive) / 0.2);
+            color: hsl(var(--destructive));
+            background: transparent;
+        }
+        
+        .btn-outline-danger:hover {
+            background: hsl(var(--destructive) / 0.1);
+            border-color: hsl(var(--destructive) / 0.5); 
+            color: hsl(var(--destructive));
+        }
+        
+        .btn-sm {
+            height: 2.25rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Ghost button style for subtle actions */
+        .btn-ghost-secondary {
+            background: transparent;
+            color: hsl(var(--muted-foreground));
+            border: none;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            height: auto;
+        }
+        
+        .btn-ghost-secondary:hover {
+            background: hsl(var(--secondary) / 0.8);
+            color: hsl(var(--secondary-foreground));
+        }
+        
+        /* Ghost danger button for delete actions */
+        .btn-ghost-danger {
+            background: transparent;
+            color: hsl(var(--destructive));
+            border: none;
+            padding: 0.5rem 0.75rem;
+        }
+        
+        .btn-ghost-danger:hover {
+            background: hsl(var(--destructive) / 0.1);
+        }
+        
+        /* Background utility classes */
+        .bg-dark { 
+            background: hsl(var(--foreground)) !important; 
+        }
+        
+        .bg-light { 
+            background: hsl(var(--background)) !important; 
+        }
+          /* Card components */
+        .card-header { 
+            background: hsl(var(--card));
+            border-bottom: 1px solid hsl(var(--border)); 
+            padding: 1rem 1.5rem;
+        }
+        
+        .card-title { 
+            font-weight: 600; 
+            color: hsl(var(--foreground));
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-footer {
+            background: hsl(var(--background));
+            border-top: 1px solid hsl(var(--border));
+            padding: 1rem 1.5rem;
+        }
+        
+        /* Form layout enhancements */
+        .form-row {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Form groups with proper spacing */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Form action areas (typically containing buttons) */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid hsl(var(--border) / 0.7);
+        }/* Table styles */
+        .table { 
+            border-radius: var(--radius);
+            overflow: hidden; 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            table-layout: fixed; /* For better column control */
+            margin-bottom: 1.5rem;
+        }
+        
+        .table th {
+            font-weight: 500;
+            text-align: left;
+            font-size: 0.875rem;
+            padding: 0.85rem 1rem;
+            color: hsl(var(--muted-foreground));
+            background: hsl(var(--muted) / 0.5);
+            border-bottom: 1px solid hsl(var(--border));
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 3rem; /* Standardize header height */
+            vertical-align: middle;
+        }
+        
+        .table td { 
+            padding: 0.85rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid hsl(var(--border) / 0.5);
+            font-size: 0.925rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 3.5rem; /* Standardize cell height */
+        }
+        
+        /* Better table hover effect */
+        .table-hover tbody tr:hover {
+            background-color: hsl(var(--accent) / 0.3);
+            transition: background-color 0.15s ease;
+        }
+        
+        /* Cell alignment utilities */
+        .table th.text-center, .table td.text-center {
+            text-align: center;
+        }
+        
+        .table th.text-end, .table td.text-end {
+            text-align: right;
+        }
+        
+        /* Responsive table features */
+        .table-responsive {
+            border-radius: var(--radius);
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            max-height: 65vh;
+            border: 1px solid hsl(var(--border) / 0.7);
+        }
+        
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Empty state styling for tables */
+        .table-empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: hsl(var(--muted-foreground));
+        }
+        
+        .table-empty-state i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        /* Modal styling */
+        .modal-content { 
+            background: hsl(var(--background));
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+          /* Badge styling */
+        .badge { 
+            border-radius: calc(var(--radius) - 4px);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.25rem 0.75rem;
+            text-align: center;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+        
+        /* Badge variants */
+        .badge.bg-primary.bg-opacity-10 {
+            border: 1px solid hsl(var(--primary) / 0.2);
+        }
+        
+        .badge.bg-secondary.bg-opacity-10 {
+            border: 1px solid hsl(var(--secondary) / 0.3);
+        }
+        
+        .badge.bg-success.bg-opacity-10 {
+            border: 1px solid hsl(var(--success) / 0.2);
+        }
+        
+        .badge.bg-warning.bg-opacity-10 {
+            border: 1px solid hsl(var(--warning) / 0.2);
+        }
+        
+        .badge.bg-info.bg-opacity-10 {
+            border: 1px solid hsl(var(--info) / 0.2);
+        }/* Sidebar styling - shadcn/ui inspired */
+        .sidebar {
+            background: hsl(var(--card));
+            border-right: 1px solid hsl(var(--border));
+            width: 130px; /* Reduced by 50% from 260px */
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            z-index: 10;
+            padding: 1.25rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease;
+        }
+        
+        .sidebar .navbar-brand {
+            text-decoration: none;
+            margin-bottom: 1.25rem;
+            padding-left: 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar h6 {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            color: hsl(var(--muted-foreground));
+        }
+        
+        .sidebar .nav-link {
+            color: hsl(var(--foreground) / 0.7) !important;
+            border-radius: var(--radius);
+            padding: 0.75rem 0;
+            font-size: 0.95rem;
+            transition: all 150ms ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .sidebar .nav-link i {
+            font-size: 1.3rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.3rem;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: hsl(var(--accent));
+            color: hsl(var(--accent-foreground)) !important;
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: hsl(var(--accent));
+            color: hsl(var(--accent-foreground)) !important;
+            font-weight: 500;
+        }
+        
+        .sidebar .nav-item {
+            margin-bottom: 0.25rem;
+        }
+        
+        /* Alert styling - shadcn/ui style */
+        .alert {
+            border-left: 4px solid transparent;
+        }
+        
+        .alert-success { 
+            background: hsl(var(--success) / 0.12);
+            color: hsl(var(--success));
+            border-left-color: hsl(var(--success));
+        }
+        
+        .alert-danger, .alert-error { 
+            background: hsl(var(--destructive) / 0.12);
+            color: hsl(var(--destructive));
+            border-left-color: hsl(var(--destructive));
+        }
+        
+        .alert-info { 
+            background: hsl(var(--info) / 0.12); 
+            color: hsl(var(--info));
+            border-left-color: hsl(var(--info));
+        }
+        
+        .alert-warning { 
+            background: hsl(var(--warning) / 0.12); 
+            color: hsl(var(--warning));
+            border-left-color: hsl(var(--warning));
+        }
+        
+        /* Card hover animation consistent with shadcn/ui */
+        .card-hover {
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            border-radius: calc(var(--radius) + 0.25rem) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09);
+        }
+        
+        .card-hover:hover {
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Stat card shadcn/ui style */
+        .stat-card {
+            border-radius: calc(var(--radius) + 0.25rem) !important;
+            transition: all 0.2s ease;
+        }
+        
+        .stat-card:hover {
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Shadcn-style icon backgrounds */
+        .icon-container {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+        }
+        
+        /* Select dropdown shadcn style */
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%23374151' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+            background-position: right 0.75rem center;
+            background-repeat: no-repeat;
+            background-size: 1rem;
+            padding-right: 2.5rem;
+        }
+    </style>    {% block extra_css %}{% endblock %}
+    
+    <!-- Add Bootstrap JS for tooltips -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    placement: 'right',
+                    boundary: 'window'
+                })
+            })
+        });
+    </script><!-- Sidebar Navigation -->
+    <div class="d-flex" style="min-height: 100vh;">
+        <nav class="sidebar d-flex flex-column" style="width: 80px; min-height: 100vh;">
+            <!-- Sidebar Header -->
+            <div class="mb-4 text-center">
+                <a class="navbar-brand fs-4 d-flex justify-content-center" href="{{ url_for('dashboard') if current_user.is_authenticated else url_for('login') }}" style="color: hsl(var(--foreground))">
+                    <i class="fas fa-warehouse"></i>
+                </a>
+            </div>
+
+            {% if current_user.is_authenticated %}
+            <!-- Main Navigation -->
+            <div class="mb-4">
+                <h6 class="text-uppercase text-muted small fw-semibold mb-3">Menu</h6>
+                <ul class="nav flex-column gap-2 mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link w-100 text-center {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}" title="Dashboard">
+                            <i class="fas fa-gauge-high"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link w-100 text-center {% if request.endpoint == 'inventory' %}active{% endif %}" href="{{ url_for('inventory') }}" title="Inventory">
+                            <i class="fas fa-boxes-stacked"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link w-100 text-center {% if request.endpoint == 'transfers' %}active{% endif %}" href="{{ url_for('transfers') }}" title="Transfers">
+                            <i class="fas fa-exchange-alt"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link w-100 text-center {% if request.endpoint == 'damaged_items' %}active{% endif %}" href="{{ url_for('damaged_items') }}" title="Ødelagte produkter">
+                            <i class="fas fa-ban"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link w-100 text-center {% if request.endpoint == 'opened_items' %}active{% endif %}" href="{{ url_for('opened_items') }}" title="Anbrud">
+                            <i class="fas fa-door-open"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Management Section -->
+            <div class="mb-auto">
+                <h6 class="text-uppercase text-muted small fw-semibold mb-3">Tools</h6>
+                <ul class="nav flex-column gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link w-100 text-center {% if request.endpoint == 'event_logs' %}active{% endif %}" href="{{ url_for('event_logs') }}" title="Event Logs">
+                            <i class="fas fa-clipboard-list"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link w-100 text-center {% if request.endpoint == 'generate_report' %}active{% endif %}" href="{{ url_for('generate_report') }}" title="Reports">
+                            <i class="fas fa-chart-bar"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="mt-auto pt-3 border-top border-muted text-center">
+                <div class="d-flex flex-column align-items-center py-2 mb-2">
+                    <div class="p-2 rounded-circle mb-2" style="background-color: hsl(var(--secondary));">
+                        <i class="fas fa-user text-muted"></i>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center justify-content-center" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+            {% else %}
+            <ul class="nav flex-column gap-1 mb-auto text-center">
+                <li class="nav-item">
+                    <a class="nav-link w-100 text-center {% if request.endpoint == 'login' %}active{% endif %}" href="{{ url_for('login') }}" title="Login">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </nav><div class="flex-grow-1 d-flex flex-column overflow-auto" style="flex-basis: 0; min-width: 0;">
+            <!-- Top Header -->
+            <header class="border-bottom d-flex justify-content-between align-items-center py-3 px-4 bg-white">
+                <!-- Left side - Page title placeholder (can be filled by individual pages) -->
+                <div class="d-flex align-items-center">
+                    {% block page_header_title %}{% endblock %}
+                </div>
+                
+                <!-- Right side - User Actions -->
+                <div class="d-flex gap-2 align-items-center">
+                    {% if current_user.is_authenticated %}
+                    <div class="d-none d-md-flex me-3 text-end">
+                        <div class="fw-medium fs-6">{{ current_user.username }}</div>
+                        <div class="text-muted small">{{ current_user.location_name }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </header>
+              <!-- Main Content -->            <main class="flex-grow-1" style="background-color: hsl(var(--background)); padding: 1.5rem; display: flex; flex-direction: column; transition: all 0.3s ease;">
+                <div class="w-100">
+                    {% block content %}{% endblock %}
+                </div>
+            </main><!-- Footer -->
+            <footer class="footer mt-auto py-4 border-top">
+                <div class="container-fluid px-4">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+                        <div class="text-center text-md-start">
+                            <span class="text-muted small">© {{ now.year }} Festival Logistics</span>
+                        </div>
+                        <div class="d-flex gap-4 text-muted small">
+                            <a href="#" class="text-decoration-none" style="color: hsl(var(--muted-foreground))">Privacy Policy</a>
+                            <a href="#" class="text-decoration-none" style="color: hsl(var(--muted-foreground))">Terms</a>
+                            <a href="#" class="text-decoration-none" style="color: hsl(var(--muted-foreground))">Help</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Flash Messages (moved inside main content area) -->
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

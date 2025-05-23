@@ -1,0 +1,131 @@
+/* Custom styles for the Festival Logistics application */
+
+/* Base styles */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* Form elements */
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Card customization */
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+/* Dashboard elements */
+.stats-card {
+    transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Dashboard chart cards */
+.dashboard-chart {
+    height: 100%;
+    min-height: 350px;
+}
+
+.card.h-100 {
+    height: 100%;
+}
+
+.card.h-100 .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card.h-100 .flex-grow-1 {
+    flex-grow: 1;
+    position: relative;
+}
+
+/* Responsive tables */
+.table-responsive {
+    margin-bottom: 1rem;
+}
+
+/* Mobile optimization */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .card-body {
+        padding: 0.75rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Custom colors for inventory status */
+.low-stock {
+    color: #dc3545;
+}
+
+.medium-stock {
+    color: #fd7e14;
+}
+
+.high-stock {
+    color: #28a745;
+}
+
+/* Animation for flash messages */
+.alert {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Additional styling for event logs page */
+.event-row {
+    transition: background-color 0.2s ease;
+}
+
+.event-row:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Improve inventory item action buttons' appearance */
+.btn-group .btn {
+    margin-right: 3px;
+}
+
+/* Make modal forms more user-friendly */
+.modal-body .form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Make sure tables are readable on mobile */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.4rem;
+        font-size: 0.7rem;
+    }
+}

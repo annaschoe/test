@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Debug Information{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Debug Information</h1>
+    </div>
+    
+    <div class="alert alert-warning">
+        This page is only accessible in debug mode.
+    </div>
+    
+    <div class="card mb-3">
+        <div class="card-header bg-info text-white">
+            <h5 class="card-title mb-0">Flask Environment</h5>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Flask Version</th>
+                    <td>{{ debug_info.Flask_Version }}</td>
+                </tr>
+                <tr>
+                    <th>Debug Mode</th>
+                    <td>{{ debug_info.Debug_Mode }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="card mb-3">
+        <div class="card-header bg-info text-white">
+            <h5 class="card-title mb-0">Database</h5>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Database Path</th>
+                    <td>{{ debug_info.Database_Path }}</td>
+                </tr>
+                <tr>
+                    <th>Database Exists</th>
+                    <td>{{ debug_info.Database_Exists }}</td>
+                </tr>
+                <tr>
+                    <th>Database Status</th>
+                    <td>{{ debug_info.Database_Status }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="card mb-3">
+        <div class="card-header bg-info text-white">
+            <h5 class="card-title mb-0">Routes</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for route in debug_info.Routes %}
+                    <li class="list-group-item">{{ route }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h5>Configuration</h5>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                {% for key, value in debug_info.Config.items() %}
+                <tr>
+                    <th>{{ key }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

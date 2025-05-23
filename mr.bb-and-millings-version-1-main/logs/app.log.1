@@ -1,0 +1,82 @@
+2025-05-21 23:55:41,456 [INFO] Set database file permissions to 0o600
+2025-05-21 23:55:41,462 [INFO] Login attempt for user Bar 2, ID: 7
+2025-05-21 23:55:41,463 [INFO] Password hash method: pbkdf2:sha256:600000
+2025-05-21 23:55:42,195 [INFO] Password check successful, user ID: 7
+2025-05-21 23:55:42,196 [INFO] User logged in successfully: Bar 2
+2025-05-21 23:55:42,197 [INFO] 127.0.0.1 - - [21/May/2025 23:55:42] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-21 23:55:42,205 [INFO] Set database file permissions to 0o600
+2025-05-21 23:55:42,214 [ERROR] Unhandled Exception: expected token 'end of statement block', got '['
+Traceback (most recent call last):
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\lucas\OneDrive\Skrivebord\Projects\festivault v.1 Rødover flask v\routes.py", line 237, in dashboard
+    return render_template('dashboard.html',
+                          stats=inventory_stats,
+                          recent_activity=recent_activity,
+                          inventory_items=inventory_items)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "c:\Users\lucas\OneDrive\Skrivebord\Projects\festivault v.1 Rødover flask v\templates\dashboard.html", line 250, in template
+    {% for item in inventory_items|default([])[:5] %}
+    
+jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got '['
+2025-05-21 23:55:42,226 [INFO] 127.0.0.1 - - [21/May/2025 23:55:42] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-05-21 23:55:42,253 [INFO] 127.0.0.1 - - [21/May/2025 23:55:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-21 23:56:13,808 [INFO] Set database file permissions to 0o600
+2025-05-21 23:56:13,816 [ERROR] Unhandled Exception: expected token 'end of statement block', got '['
+Traceback (most recent call last):
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\lucas\OneDrive\Skrivebord\Projects\festivault v.1 Rødover flask v\routes.py", line 237, in dashboard
+    return render_template('dashboard.html',
+                          stats=inventory_stats,
+                          recent_activity=recent_activity,
+                          inventory_items=inventory_items)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "c:\Users\lucas\OneDrive\Skrivebord\Projects\festivault v.1 Rødover flask v\templates\dashboard.html", line 250, in template
+    {% for item in inventory_items|default([])[:5] %}
+    
+jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got '['

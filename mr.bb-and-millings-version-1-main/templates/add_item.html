@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Item{% endblock %}
+
+{% block page_header_title %}
+<h2 class="fw-semibold m-0" style="color: hsl(var(--foreground));">Add New Item</h2>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-2 px-md-4 mx-auto" style="max-width: 800px;">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-5">
+        <div>
+            <h2 class="fw-semibold fs-4 mb-2">Add New Item</h2>
+            <p class="text-muted m-0">Enter details for the new inventory item</p>
+        </div>
+        <div class="mt-3 mt-md-0">
+            <a href="{{ url_for('inventory') }}" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2">
+                <i class="fas fa-arrow-left"></i> <span>Back to Inventory</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm card-hover">
+        <div class="card-header bg-white border-0 pb-0 d-flex justify-content-between align-items-center p-4">
+            <div class="d-flex align-items-center">
+                <div class="icon-container me-3" style="background-color: hsl(var(--primary) / 0.1);">
+                    <i class="fas fa-plus" style="color: hsl(var(--primary));"></i>
+                </div>
+                <h5 class="card-title mb-0 fw-semibold">Item Details</h5>
+            </div>
+        </div>
+        <div class="card-body p-4">
+                    <form method="post" action="{{ url_for('add_item') }}" class="row g-3">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Item Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" min="0" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="type" class="form-label">Type</label>
+                            <select class="form-select" id="type" name="type" required>
+                                <option value="" selected disabled>Select item type...</option>
+                                {% for type in item_types %}
+                                <option value="{{ type }}">{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end gap-2">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Add Item</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
