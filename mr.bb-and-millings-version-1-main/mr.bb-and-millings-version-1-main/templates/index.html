@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Inventory Management{% endblock %}
+
+{% block page_header_title %}
+<h2 class="fw-semibold m-0" style="color: hsl(var(--foreground));">{{ current_location }} - Inventory Management</h2>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-2 px-md-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+        <div>
+            <h2 class="fw-semibold fs-4 mb-2">Inventory Dashboard</h2>
+            <p class="text-muted m-0">Manage your items and transfers</p>
+        </div>
+        <div class="d-flex gap-2 mt-3 mt-md-0">
+            <a href="{{ url_for('existing_items') }}" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2">
+                <i class="fas fa-boxes-stacked"></i> <span>View Inventory</span>
+            </a>
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-danger d-inline-flex align-items-center gap-2">
+                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mb-4">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show">
+                        <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'error' or category == 'danger' %}exclamation-circle{% elif category == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}    <div class="card border-0 shadow-sm card-hover mb-4">
+        <div class="card-header bg-white border-0 pb-0 d-flex justify-content-between align-items-center p-4">
+            <div class="d-flex align-items-center">
+                <div class="icon-container me-3" style="background-color: hsl(var(--info) / 0.1);">
+                    <i class="fas fa-location-dot" style="color: hsl(var(--info));"></i>
+                </div>
+                <h5 class="card-title mb-0 fw-semibold">Current Location: {{ current_location }}</h5>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            {% if current_user.id == 1 %}
+            <form method="POST" action="{{ url_for('update_location_name') }}" class="row g-2 align-items-center">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="col-auto">
+                    <input type="text" name="new_name" class="form-control" placeholder="New Location Name" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary d-inline-flex align-items-center gap-2">
+                        <i class="fas fa-save"></i> <span>Update Name</span>
+                    </button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm card-hover mb-4">
+        <div class="card-header bg-white border-0 pb-0 d-flex justify-content-between align-items-center p-4">
+            <div class="d-flex align-items-center">
+                <div class="icon-container me-3" style="background-color: hsl(var(--primary) / 0.1);">
+                    <i class="fas fa-plus" style="color: hsl(var(--primary));"></i>
+                </div>
+                <h5 class="card-title mb-0 fw-semibold">Add New Item</h5>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <form action="{{ url_for('add_item') }}" method="post" class="row g-3">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="col-md-4">
+                    <label for="name" class="form-label">Item Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" class="form-control" min="0" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="type" class="form-label">Item Type</label>
+                    <select id="type" name="type" class="form-select" required>
+                        <option value="">Select Type</option>
+                        {% for item_type in item_types %}
+                            <option value="{{ item_type }}">{{ item_type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-12 d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-primary d-inline-flex align-items-center gap-2">
+                        <i class="fas fa-plus"></i> <span>Add Item</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>    {% if current_user.id == 1 %}
+    <div class="card border-0 shadow-sm card-hover mb-4">
+        <div class="card-header bg-white border-0 pb-0 d-flex justify-content-between align-items-center p-4">
+            <div class="d-flex align-items-center">
+                <div class="icon-container me-3" style="background-color: hsl(var(--secondary-foreground) / 0.1);">
+                    <i class="fas fa-exchange-alt" style="color: hsl(var(--secondary-foreground));"></i>
+                </div>
+                <h5 class="card-title mb-0 fw-semibold">Quick Transfer</h5>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <form action="{{ url_for('transfer_item') }}" method="post" class="row g-3">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="col-md-4">
+                    <label for="item_id" class="form-label">Select Item</label>
+                    <select name="item_id" id="item_id" class="form-select" required>
+                        <option value="">Select Item</option>
+                        {% for item in items %}
+                            <option value="{{ item.id }}">{{ item.name }} ({{ item.quantity }} available)</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="to_location" class="form-label">Destination</label>
+                    <select name="to_location" id="to_location" class="form-select" required>
+                        <option value="">Select Location</option>
+                        {% for location in locations %}
+                            {% if location.id != current_user.id %}
+                                <option value="{{ location.id }}">{{ location.location_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="transfer_quantity" class="form-label">Quantity</label>
+                    <input type="number" id="transfer_quantity" name="quantity" class="form-control" min="1" required>
+                </div>
+                <div class="col-12 d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-primary d-inline-flex align-items-center gap-2">
+                        <i class="fas fa-paper-plane"></i> <span>Transfer Item</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="d-flex justify-content-end mb-4">
+        <a href="{{ url_for('export_excel') }}" class="btn btn-outline-info d-inline-flex align-items-center gap-2">
+            <i class="fas fa-file-excel"></i> <span>Export to Excel</span>
+        </a>
+    </div>
+</div>
+{% endblock %}
