@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Festival Logistics{% endblock %}
+
+
+
+{% block content %}
+<div class="container py-5 d-flex justify-content-center">
+    <div class="row justify-content-center" style="max-width: 460px; width: 100%;">
+        <div class="col-12">
+            <div class="text-center mb-5">
+                <div class="d-inline-flex align-items-center justify-content-center mb-4">
+                    <div class="p-3 bg-primary bg-opacity-10 rounded-circle">
+                        <i class="fas fa-warehouse text-primary fs-1"></i>
+                    </div>
+                </div>
+                <h1 class="fs-3 fw-bold">Festival Logistics</h1>
+                <p class="text-muted">Sign in to your account to continue</p>
+            </div>
+            
+            <div class="card border-0 shadow-sm card-hover">
+                <div class="card-body p-4 p-md-5">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <div class="mb-4">
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show">
+                                        <div class="d-flex gap-2">
+                                            {% if category == 'error' or category == 'danger' %}
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            {% elif category == 'success' %}
+                                            <i class="fas fa-check-circle"></i>
+                                            {% else %}
+                                            <i class="fas fa-info-circle"></i>
+                                            {% endif %}
+                                            <div>{{ message }}</div>
+                                        </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="mb-4">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required autofocus>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-primary py-2">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer bg-white text-center py-4 border-top border-light">
+                    <p class="mb-0">
+                        Don't have an account? 
+                        <a href="{{ url_for('register') }}" class="fw-medium text-decoration-none">Register</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

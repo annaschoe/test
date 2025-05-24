@@ -1,0 +1,55 @@
+from app import app
+from database import init_db
+init_db(app)
+
+{% extends "base.html" %}
+{% block title %}Ødelagte Produkter{% endblock %}
+{% block page_header_title %}
+<h2 class="fw-semibold m-0">Ødelagte Produkter</h2>
+{% endblock %}
+{% block content %}
+<div class="container" style="max-width:600px;">
+    <form method="post" class="mb-4">
+        {% if csrf_token %}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% endif %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Produktnavn</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Antal</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Lokation</label>
+            <input type="text" class="form-control" id="location" name="location" value="{{ user.location_name if user else '' }}" required>
+        </div>
+        <button type="submit" class="btn btn-danger">Registrer Ødelagt</button>
+        <a href="{{ url_for('damaged_csv') }}" class="btn btn-outline-primary ms-2">
+            <i class="fas fa-file-csv"></i> Eksportér CSV
+        </a>
+    </form>
+    <h5>Registrerede ødelagte produkter</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Antal</th>
+                <th>Lokation</th>
+                <th>Dato</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item['name'] }}</td>
+                <td>{{ item['quantity'] }}</td>
+                <td>{{ item['location'] }}</td>
+                <td>{{ item['timestamp'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

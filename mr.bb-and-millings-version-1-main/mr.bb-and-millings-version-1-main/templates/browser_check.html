@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Browser Check{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Browser Compatibility Check</h1>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header {% if is_mobile %}bg-warning{% else %}bg-primary{% endif %} text-white">
+            <h5 class="card-title mb-0">
+                {% if is_mobile %}
+                    Mobile Browser Detected
+                {% else %}
+                    Desktop Browser Detected
+                {% endif %}
+            </h5>
+        </div>
+        <div class="card-body">
+            <h4>Your Browser Information:</h4>
+            <p><strong>User Agent:</strong> {{ user_agent }}</p>
+            
+            <div class="alert {% if is_mobile %}alert-warning{% else %}alert-info{% endif %}">
+                {% if is_mobile %}
+                    <p>
+                        <strong>Note:</strong> You're using a mobile browser. While our application is designed to work on mobile devices,
+                        some features might be optimized for desktop use. For the best experience with complex operations like bulk transfers,
+                        consider using a desktop browser.
+                    </p>
+                {% else %}
+                    <p>
+                        <strong>Great!</strong> You're using a desktop browser which provides the optimal experience for the Festival Logistics system.
+                    </p>
+                {% endif %}
+            </div>
+            
+            <h4>Browser Features:</h4>
+            <ul id="feature-list" class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    JavaScript
+                    <span class="badge bg-success">Enabled</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cookies
+                    <span class="badge" id="cookie-status">Checking...</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Local Storage
+                    <span class="badge" id="storage-status">Checking...</span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Return to Dashboard</a>
+            <a href="{{ url_for('test_route') }}" class="btn btn-secondary ms-2">Connection Test</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check cookie functionality
+        try {
+            document.cookie = "testcookie=1";
+            var cookieEnabled = document.cookie.indexOf("testcookie") != -1;
+            
+            document.getElementById('cookie-status').textContent = cookieEnabled ? "Enabled" : "Disabled";
+            document.getElementById('cookie-status').className = cookieEnabled ? "badge bg-success" : "badge bg-danger";
+        } catch (e) {
+            document.getElementById('cookie-status').textContent = "Error";
+            document.getElementById('cookie-status').className = "badge bg-danger";
+        }
+        
+        // Check local storage
+        try {
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            document.getElementById('storage-status').textContent = "Enabled";
+            document.getElementById('storage-status').className = "badge bg-success";
+        } catch (e) {
+            document.getElementById('storage-status').textContent = "Disabled";
+            document.getElementById('storage-status').className = "badge bg-danger";
+        }
+    });
+</script>
+{% endblock %}

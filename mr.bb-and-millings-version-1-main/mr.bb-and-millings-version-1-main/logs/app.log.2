@@ -1,0 +1,50 @@
+2025-05-21 23:55:17,470 [INFO] 127.0.0.1 - - [21/May/2025 23:55:17] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-05-21 23:55:17,516 [INFO] 127.0.0.1 - - [21/May/2025 23:55:17] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-21 23:55:19,317 [INFO] Set database file permissions to 0o600
+2025-05-21 23:55:19,326 [ERROR] Unhandled Exception: expected token 'end of statement block', got '['
+Traceback (most recent call last):
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\lucas\OneDrive\Skrivebord\Projects\festivault v.1 Rødover flask v\routes.py", line 237, in dashboard
+    return render_template('dashboard.html',
+                          stats=inventory_stats,
+                          recent_activity=recent_activity,
+                          inventory_items=inventory_items)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lucas\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "c:\Users\lucas\OneDrive\Skrivebord\Projects\festivault v.1 Rødover flask v\templates\dashboard.html", line 250, in template
+    {% for item in inventory_items|default([])[:5] %}
+    
+jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got '['
+2025-05-21 23:55:19,330 [INFO] 127.0.0.1 - - [21/May/2025 23:55:19] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-05-21 23:55:19,358 [INFO] 127.0.0.1 - - [21/May/2025 23:55:19] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-21 23:55:36,475 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-05-21 23:55:36,476 [INFO] [33mPress CTRL+C to quit[0m
+2025-05-21 23:55:38,589 [INFO] 127.0.0.1 - - [21/May/2025 23:55:38] "[32mGET / HTTP/1.1[0m" 302 -
+2025-05-21 23:55:38,627 [INFO] Set database file permissions to 0o600
+2025-05-21 23:55:38,666 [INFO] 127.0.0.1 - - [21/May/2025 23:55:38] "GET /login HTTP/1.1" 200 -
+2025-05-21 23:55:38,846 [INFO] 127.0.0.1 - - [21/May/2025 23:55:38] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
