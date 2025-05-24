@@ -1,9 +1,0 @@
-2025-03-08 19:08:36,618 [INFO] Set database file permissions to 0o600
-2025-03-08 19:08:36,624 [INFO] 127.0.0.1 - - [08/Mar/2025 19:08:36] "GET /inventory HTTP/1.1" 200 -
-2025-03-08 19:08:36,648 [INFO] 127.0.0.1 - - [08/Mar/2025 19:08:36] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
-2025-03-08 19:08:38,558 [INFO] Set database file permissions to 0o600
-2025-03-08 19:08:38,558 [INFO] 127.0.0.1 - - [08/Mar/2025 19:08:38] "GET /dashboard HTTP/1.1" 200 -
-2025-03-08 19:08:38,582 [INFO] 127.0.0.1 - - [08/Mar/2025 19:08:38] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
-2025-03-08 19:08:39,765 [INFO] Set database file permissions to 0o600
-2025-03-08 19:08:39,766 [INFO] 127.0.0.1 - - [08/Mar/2025 19:08:39] "GET /transfers HTTP/1.1" 200 -
-2025-03-08 19:08:39,794 [INFO] 127.0.0.1 - - [08/Mar/2025 19:08:39] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
